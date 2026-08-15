@@ -1,1 +1,91 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>SKU Review</title></head><body><p>deployed</p></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f5f5f5; }
+        .container { max-width:600px; margin:0 auto; padding:20px; }
+        .header { text-align:center; padding:20px; background:#ffffff; color:#333; border-radius:12px 12px 0 0; }
+        .header h1 { margin:0; font-size:24px; text-align:center; }
+        .footer { text-align:center; padding:20px; background:#ffffff; color:#333; border-radius:0 0 12px 12px; font-size:14px; text-align:center; }
+    </style>
+</head>
+<body>
+    <div id="checked-nav" style="position:sticky;top:0;background:#4267B2;color:#fff;padding:10px;text-align:center;z-index:10;font-size:13px;"></div>
+    <div class="container">
+        <div class="header">
+            <h1>🔥 本週熱銷 TOP 精選</h1>
+        </div>
+        
+        <div id="card-LX082601" style="background:#fff;border-radius:12px;padding:20px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+            <label style="display:block;margin-bottom:10px;font-size:14px;color:#333;">
+                <input type="checkbox" class="remove-box" data-sku="LX082601" data-title="LX082601 假兩件層次小開叉針織上衣&lt;br&gt;&lt;span style=&#x27;font-weight:normal;&#x27;&gt;$22&lt;/span&gt;"> 移除這項
+            </label>
+            <a href="https://www.facebook.com/groups/USAhotdeals/posts/4594068777507066/" target="_blank"><img src="https://res.cloudinary.com/dr2j27qfr/image/upload/v1786809500/pqlfjd16kt5hatvk9c01.jpg" style="width:100%;max-width:300px;border-radius:8px;" alt="產品圖片"></a>
+            <h3 style="margin:15px 0 10px;font-size:14px;color:#333;line-height:1.4;">LX082601 假兩件層次小開叉針織上衣<br><span style='font-weight:normal;'>$22</span></h3>
+            <p style="margin:0 0 15px;font-size:14px;color:#666;">🔥 熱門選擇: 標準款</p>
+            <a href="https://www.facebook.com/groups/USAhotdeals/posts/4594068777507066/" target="_blank" style="display:inline-block;background:#4267B2;color:#fff;padding:10px 20px;border-radius:20px;text-decoration:none;font-size:14px;">👀 看看這款熱賣品</a>
+        </div>
+        
+        <div id="card-MX082608" style="background:#fff;border-radius:12px;padding:20px;margin:20px 0;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+            <label style="display:block;margin-bottom:10px;font-size:14px;color:#333;">
+                <input type="checkbox" class="remove-box" data-sku="MX082608" data-title="MX082608 寬肩包覆交叉剪裁美背小可愛&lt;br&gt;&lt;span style=&#x27;font-weight:normal;&#x27;&gt;$15&lt;/span&gt;"> 移除這項
+            </label>
+            <a href="https://www.facebook.com/groups/USAhotdeals/posts/4594089474171663/" target="_blank"><img src="https://res.cloudinary.com/dr2j27qfr/image/upload/v1786809505/apaubgf52luzkgcsrhuo.jpg" style="width:100%;max-width:300px;border-radius:8px;" alt="產品圖片"></a>
+            <h3 style="margin:15px 0 10px;font-size:14px;color:#333;line-height:1.4;">MX082608 寬肩包覆交叉剪裁美背小可愛<br><span style='font-weight:normal;'>$15</span></h3>
+            <p style="margin:0 0 15px;font-size:14px;color:#666;">🔥 熱門選擇: 黑</p>
+            <a href="https://www.facebook.com/groups/USAhotdeals/posts/4594089474171663/" target="_blank" style="display:inline-block;background:#4267B2;color:#fff;padding:10px 20px;border-radius:20px;text-decoration:none;font-size:14px;">👀 看看這款熱賣品</a>
+        </div>
+        
+        <div class="footer">
+            <p style="text-align:center;font-size:18px;color:#333;font-weight:bold;"><a href="https://www.facebook.com/groups/USAhotdeals/?sorting_setting=CHRONOLOGICAL" target="_blank" style="color:#333;text-decoration:underline;">👉👉 立即前往 Facebook 社團，查看更多本週最新商品</a></p>
+        </div>
+    </div>
+    
+<script>
+const BIN_ID = "6a809684da38895dfee901cb";
+const API_KEY = "$2a$10$WsczLRSPAGpgp48ZflZKreaWbQwukfVKuRoCIpadtaJnf.F323716";
+function cleanTitle(t){ return (t||'').replace(/<[^>]*>/g,''); }
+async function loadState(){
+  try{
+    const r = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {headers:{"X-Master-Key":API_KEY}});
+    if(!r.ok) return [];
+    const d = await r.json();
+    return (d.record && d.record.checked) || [];
+  }catch(e){ return []; }
+}
+async function saveState(checked){
+  try{
+    await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+      method:"PUT",
+      headers:{"X-Master-Key":API_KEY,"Content-Type":"application/json"},
+      body: JSON.stringify({checked: checked})
+    });
+  }catch(e){}
+}
+function rebuildNav(){
+  const nav = document.getElementById('checked-nav');
+  if(!nav) return;
+  const checked = Array.from(document.querySelectorAll('.remove-box:checked'));
+  if(checked.length === 0){ nav.textContent = '尚未勾選任何商品'; return; }
+  nav.innerHTML = '已勾選: ' + checked.map(cb =>
+    `<a href="#card-${cb.dataset.sku}" style="color:#fff;text-decoration:underline;margin:0 6px;">${cleanTitle(cb.dataset.title)}</a>`
+  ).join('');
+}
+async function init(){
+  const state = await loadState();
+  document.querySelectorAll('.remove-box').forEach(cb => {
+    if(state.includes(cb.dataset.sku)) cb.checked = true;
+    cb.addEventListener('change', async () => {
+      const checked = Array.from(document.querySelectorAll('.remove-box:checked')).map(c => c.dataset.sku);
+      await saveState(checked);
+      rebuildNav();
+    });
+  });
+  rebuildNav();
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>
